@@ -27,15 +27,10 @@ int main(int, char const**)
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 
     // Set the Icon
-    sf::Image icon;
-    if (!icon.loadFromFile("icon.png")) {
-        return EXIT_FAILURE;
-    }
-    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     // Load a sprite to display
     sf::Texture texture;
-    if (!texture.loadFromFile("cute_image.jpg")) {
+    if (!texture.loadFromFile("Black.jpg")) {
         return EXIT_FAILURE;
     }
     sf::Sprite sprite(texture);
