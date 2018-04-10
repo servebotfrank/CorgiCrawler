@@ -78,6 +78,21 @@ int main(int, char const**)
 
         // Clear screen
         window.clear();
+        
+        //PLAYER MOVEMENT
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //Move Up
+            player.moveUp();
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //Move Right
+            player.moveRight();
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //Move Down
+            player.moveDown();
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Move Left
+            player.moveLeft();
+
+
 
         // Draw the sprite
         window.draw(sprite);
