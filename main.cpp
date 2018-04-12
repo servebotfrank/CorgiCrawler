@@ -18,6 +18,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "player.hpp"
+#include <iostream>
+
 
 // Here is a small helper for you! Have a look.
 
@@ -33,11 +35,14 @@ int main(int, char const**)
     if (!texture.loadFromFile("Black.jpg")) {
         return EXIT_FAILURE;
     }
-    sf::Sprite sprite(texture);
     
     sf::Texture playerTexture;
-    if(!playerTexture.loadFromFile("Undertale.png"))
+    if(!playerTexture.loadFromFile("Corgi.png"))
         std::cout << "Texture Error" << std::endl;
+    
+    sf::Sprite sprite(playerTexture);
+    
+
 
     // Create a graphical text to display
     sf::Font font;
@@ -55,6 +60,7 @@ int main(int, char const**)
 
     // Play the music
     music.play();
+    
     
     Player player(playerTexture);
 
@@ -75,6 +81,10 @@ int main(int, char const**)
                 window.close();
             }
         }
+        
+        
+        
+        
 
         // Clear screen
         window.clear();
@@ -91,6 +101,8 @@ int main(int, char const**)
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Move Left
             player.moveLeft();
+        
+
 
 
 
@@ -99,7 +111,8 @@ int main(int, char const**)
 
         // Draw the string
         window.draw(text);
-        window.draw(player.getSprite()); //Draw Player Sprite
+        window.draw(player.getSprite());
+
 
 
         // Update the window

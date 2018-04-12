@@ -20,7 +20,7 @@ Player::Player(sf::Texture& TEMP_Texture)
     _Sprite.setPosition(600 - 32, 350 - 32); //Set Sprite Position (Centre)
     _Sprite.setScale(1.5f, 1.5f); //Sprite Scale
     //sf::Vector2i _Source(1, Up); //Default Sprite Sheet Crop
-    //_Sprite.setTextureRect(sf::IntRect(_Source.x * 32, _Source.y * 32, 32, 32)); //Crop Sprite Sheet (Default Crop)
+    _Sprite.setTextureRect(sf::IntRect(_Source.x * 145, _Source.y *180 , 48, 45)); //Crop Sprite Sheet (Default Crop)
     
     //PLAYER / ANIMATION SPEED
     _AnimTime = sf::milliseconds(80); //Animation Speed
@@ -44,11 +44,11 @@ void Player::moveUp()
     
     if(_AnimClock.getElapsedTime() > _AnimTime)
     {
-        //_Sprite.setTextureRect(sf::IntRect(_Source.x * 32, _Source.y * 32, 32, 32)); //Crop Sprite Sheet
+        _Sprite.setTextureRect(sf::IntRect(_Source.x * 48, _Source.y * 45, 48, 45)); //Crop Sprite Sheet
         
         //Animation
         _Source.x++;
-        if(_Source.x * 32 >= _Sprite.getTexture()->getSize().x)
+        if(_Source.x * 48 >= _Sprite.getTexture()->getSize().x)
         {
             _Source.x = 0;
         }
@@ -65,11 +65,11 @@ void Player::moveDown()
     
     if(_AnimClock.getElapsedTime() > _AnimTime)
     {
-        //_Sprite.setTextureRect(sf::IntRect(_Source.x * 32, _Source.y * 32, 32, 32)); //Crop Sprite Sheet
+        _Sprite.setTextureRect(sf::IntRect(_Source.x * 48, _Source.y * 45, 48, 45)); //Crop Sprite Sheet
         
         //Animation
         _Source.x++;
-        if(_Source.x * 32 >= _Sprite.getTexture()->getSize().x)
+        if(_Source.x * 48 >= _Sprite.getTexture()->getSize().x)
         {
             _Source.x = 0;
         }
@@ -85,11 +85,11 @@ void Player::moveRight()
     
     if(_AnimClock.getElapsedTime() > _AnimTime)
     {
-        //_Sprite.setTextureRect(sf::IntRect(_Source.x * 32, _Source.y * 32, 32, 32)); //Crop Sprite Sheet
+        _Sprite.setTextureRect(sf::IntRect(_Source.x * 48, _Source.y * 45, 48, 45)); //Crop Sprite Sheet
         
         //Animation
         _Source.x++;
-        if(_Source.x * 32 >= _Sprite.getTexture()->getSize().x)
+        if(_Source.x * 48 >= _Sprite.getTexture()->getSize().x)
         {
             _Source.x = 0;
         }
@@ -104,11 +104,11 @@ void Player::moveLeft()
     
     if(_AnimClock.getElapsedTime() > _AnimTime)
     {
-       // _Sprite.setTextureRect(sf::IntRect(_Source.x * 32, _Source.y * 32, 32, 32)); //Crop Sprite Sheet
+        _Sprite.setTextureRect(sf::IntRect(_Source.x * 48, _Source.y * 45, 48, 45)); //Crop Sprite Sheet
         
         //Animation
         _Source.x++;
-        if(_Source.x * 32 >= _Sprite.getTexture()->getSize().x)
+        if(_Source.x * 48 >= _Sprite.getTexture()->getSize().x)
         {
             _Source.x = 0;
         }
