@@ -19,6 +19,7 @@
 #include <SFML/Graphics.hpp>
 #include "player.hpp"
 #include <iostream>
+#include "tilemap.hpp"
 
 
 // Here is a small helper for you! Have a look.
@@ -26,16 +27,32 @@
 int main(int, char const**)
 {
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Game");
 
-    // Set the Icon
+    //Define the level with an array
+   /* const int level[] =
+    {
+        0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+        1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
+        0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
+        0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
+        0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
+        2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
+        0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
+    };
 
     // Load a sprite to display
+    Tilemap map;
+    if (!map.load("black.jpg", sf::Vector2u(32, 32), level, 16, 8)) {
+        return -1;
+    }
+  */
+    
     sf::Texture texture;
     if (!texture.loadFromFile("Black.jpg")) {
         return EXIT_FAILURE;
     }
-    
     sf::Texture playerTexture;
     if(!playerTexture.loadFromFile("Corgi.png"))
         std::cout << "Texture Error" << std::endl;
@@ -106,12 +123,13 @@ int main(int, char const**)
 
 
 
-        // Draw the sprite
-        window.draw(sprite);
 
         // Draw the string
         window.draw(text);
         window.draw(player.getSprite());
+        
+        //Draw map
+        //window.draw(map);
 
 
 
