@@ -12,15 +12,22 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
-
+#include "tilemap.hpp"
 
 class Player
 {
 public:
+    
+    sf::RectangleShape rect;
+    float bottom, left, right, top;
+    Tilemap * map;
     Player();
-    Player(sf::Texture&);
+    Player(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::Texture&);
     ~Player();
     
+    void Update();
+    bool Collision( Player p );
+    void move();
     void moveUp();
     void moveDown();
     void moveLeft();
@@ -28,14 +35,16 @@ public:
     void setSpeed(float, sf::Time);
     
     sf::Sprite getSprite() const;
+    
 private:
     sf::Sprite _Sprite;
-    sf::Vector2i _Source;
+    sf::Vector2f _Source;
     enum _Direction{Down, Left, Right, Up};
     
     float _Speed;
     sf::Clock _AnimClock;
     sf::Time _AnimTime;
+    
     
 };
 
