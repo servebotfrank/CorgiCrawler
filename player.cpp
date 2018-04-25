@@ -55,9 +55,9 @@ void Player::moveUp()
         }
     }
     
-    for (sf::FloatRect door : map->doors) {
-        if (_Sprite.getGlobalBounds().intersects(door)) {
-            Tilemap::nextLevel = 1;
+    for (Door door : map->doors) {
+        if (_Sprite.getGlobalBounds().intersects(door.rect)) {
+            Tilemap::nextLevel = door.targetLevel;
             break;
         }
     }
@@ -96,9 +96,9 @@ void Player::moveDown()
         }
     }
     
-    for (sf::FloatRect door : map->doors) {
-        if (_Sprite.getGlobalBounds().intersects(door)) {
-            Tilemap::nextLevel = 0;
+    for (Door door : map->doors) {
+        if (_Sprite.getGlobalBounds().intersects(door.rect)) {
+            Tilemap::nextLevel = door.targetLevel;
             break;
         }
     }
@@ -137,9 +137,9 @@ void Player::moveRight()
         }
     }
     
-    for (sf::FloatRect door : map->doors) {
-        if (_Sprite.getGlobalBounds().intersects(door)) {
-            Tilemap::nextLevel = 2;
+    for (Door door : map->doors) {
+        if (_Sprite.getGlobalBounds().intersects(door.rect)) {
+            Tilemap::nextLevel = door.targetLevel;
             break;
         }
     }
@@ -177,9 +177,9 @@ void Player::moveLeft()
         }
     }
     
-    for (sf::FloatRect door : map->doors) {
-        if (_Sprite.getGlobalBounds().intersects(door)) {
-            Tilemap::nextLevel = 3;
+    for (Door door : map->doors) {
+        if (_Sprite.getGlobalBounds().intersects(door.rect)) {
+            Tilemap::nextLevel = door.targetLevel;
             break;
         }
     }
