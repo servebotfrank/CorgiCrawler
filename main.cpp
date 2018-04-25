@@ -30,28 +30,35 @@ int main(int, char const**)
     sf::RenderWindow window(sf::VideoMode(800, 600), "Game");
 
     //Define the level with an array
-   /* const int level[] =
+    const int level[] =
     {
-        0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
-        1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-        0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
-        0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
-        0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
-        2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-        0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
-    };
+        1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+
+
+       };
 
     // Load a sprite to display
     Tilemap map;
-    if (!map.load("black.jpg", sf::Vector2u(32, 32), level, 16, 8)) {
+    if (!map.load("corgi crawler tiles.png", sf::Vector2u(32, 32), level, 25, 19)) {
         return -1;
-    }
-  */
-    
-    sf::Texture texture;
-    if (!texture.loadFromFile("Black.jpg")) {
-        return EXIT_FAILURE;
     }
     sf::Texture playerTexture;
     if(!playerTexture.loadFromFile("Corgi.png"))
@@ -79,7 +86,8 @@ int main(int, char const**)
     music.play();
     
     
-    Player player(playerTexture);
+    Player player(sf::Vector2f(600 - 32, 350 - 32), sf::Vector2f(48, 45), sf::Vector2f(1.5f, 1.5f), playerTexture);
+    player.map = &map;
 
     // Start the game loop
     while (window.isOpen())
@@ -107,16 +115,16 @@ int main(int, char const**)
         window.clear();
         
         //PLAYER MOVEMENT
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //Move Up
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) //Move Up
             player.moveUp();
         
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //Move Right
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) //Move Right
             player.moveRight();
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //Move Down
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) //Move Down
             player.moveDown();
         
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Move Left
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) //Move Left
             player.moveLeft();
         
 
@@ -126,11 +134,12 @@ int main(int, char const**)
 
         // Draw the string
         window.draw(text);
-        window.draw(player.getSprite());
         
         //Draw map
-        //window.draw(map);
-
+        window.draw(map);
+        
+        //Draws the Player sprite (Don't do this before drawing the map!)
+        window.draw(player.getSprite());
 
 
         // Update the window

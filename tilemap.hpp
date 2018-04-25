@@ -11,13 +11,16 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <SFML/Graphics/Rect.hpp>
+using std::vector;
 
 
 class Tilemap: public sf::Drawable, public sf::Transformable
 {
 public:
     bool load(const std::string& tile, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height);
-    
+    vector<sf::FloatRect> walls;
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
