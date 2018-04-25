@@ -42,6 +42,11 @@ bool Tilemap::load(const std::string &tileset, sf::Vector2u tileSize, const int 
                 walls.push_back(sf::FloatRect(i * tileSize.x, j * tileSize.y, 32, 32));
             }
             
+            if (tileNumber == 5) {
+                doors.push_back(sf::FloatRect(i * tileSize.x, j * tileSize.y, 32, 32));
+            }
+
+            
             // define its 4 texture coordinates
             quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
             quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);

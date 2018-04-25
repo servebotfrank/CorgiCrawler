@@ -15,9 +15,6 @@ Player::Player()
 
 Player::Player(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::Texture& TEMP_Texture)
 {
-    rect.setPosition(position);
-    rect.setSize(size);
-    rect.setScale(scale);
     
     //PLAYER SPRITE
     _Sprite.setTexture(TEMP_Texture); //Set Sprite Texture
@@ -36,24 +33,13 @@ Player::~Player()
     
 }
 
-void Player::Update () {
-    
-    bottom = rect.getPosition().y + rect.getSize().y;
-    left = rect.getPosition().x;
-    right = rect.getPosition().x + rect.getSize().x;
-    top = rect.getPosition().y;
-}
-
-bool Player::Collision( Player p) {
-    if(right < p.left || left > p.right || top > p.bottom || bottom < p.top) {
-        return false;
-    }
-    return true;
-}
-
 sf::Sprite Player::getSprite() const
 {
     return _Sprite;
+}
+
+void Player::setLocation(sf::Vector2f position){
+    _Sprite.setPosition(position);
 }
 
 void Player::moveUp()
@@ -65,6 +51,13 @@ void Player::moveUp()
     for (sf::FloatRect wall : map->walls) {
         if (_Sprite.getGlobalBounds().intersects(wall)) {
             hitsWall = true;
+            break;
+        }
+    }
+    
+    for (sf::FloatRect door : map->doors) {
+        if (_Sprite.getGlobalBounds().intersects(door)) {
+            Tilemap::nextLevel = 1;
             break;
         }
     }
@@ -103,6 +96,13 @@ void Player::moveDown()
         }
     }
     
+    for (sf::FloatRect door : map->doors) {
+        if (_Sprite.getGlobalBounds().intersects(door)) {
+            Tilemap::nextLevel = 0;
+            break;
+        }
+    }
+    
     if (hitsWall) {
         _Sprite.move(0, -_Speed);
     }
@@ -137,6 +137,13 @@ void Player::moveRight()
         }
     }
     
+    for (sf::FloatRect door : map->doors) {
+        if (_Sprite.getGlobalBounds().intersects(door)) {
+            Tilemap::nextLevel = 2;
+            break;
+        }
+    }
+    
     if (hitsWall) {
         _Sprite.move(-_Speed, 0);
     }
@@ -166,6 +173,13 @@ void Player::moveLeft()
     for (sf::FloatRect wall : map->walls) {
         if (_Sprite.getGlobalBounds().intersects(wall)) {
             hitsWall = true;
+            break;
+        }
+    }
+    
+    for (sf::FloatRect door : map->doors) {
+        if (_Sprite.getGlobalBounds().intersects(door)) {
+            Tilemap::nextLevel = 3;
             break;
         }
     }
