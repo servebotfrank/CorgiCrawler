@@ -8,6 +8,16 @@
 
 #include "Enemy.hpp"
 
+Enemy::Enemy()
+{
+    
+}
+
+Enemy::~Enemy()
+{
+    
+}
+
 Enemy::Enemy(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::Texture& TEMP_Texture)
 {
     rect.setPosition(position);
@@ -19,7 +29,7 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::T
     _Sprite.setPosition(position); //Set Sprite Position (Centre)
     _Sprite.setScale(scale); //Sprite Scale
     //sf::Vector2i _Source(1, Up); //Default Sprite Sheet Crop
-    _Sprite.setTextureRect(sf::IntRect(_Source.x * 145, _Source.y *180 , 48, 45)); //Crop Sprite Sheet (Default Crop)
+    _Sprite.setTextureRect(sf::IntRect(_Source.x * 100, _Source.y *100 , 100, 100)); //Crop Sprite Sheet (Default Crop)
     
     //PLAYER / ANIMATION SPEED
     _AnimTime = sf::milliseconds(80); //Animation Speed
