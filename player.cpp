@@ -203,3 +203,10 @@ void Player::moveLeft()
     }
 }
 
+int Player::getX(){
+    return _Sprite.getPosition().x;
+}
+
+int Player::getY(){
+    return _Sprite.getPosition().y;
+}

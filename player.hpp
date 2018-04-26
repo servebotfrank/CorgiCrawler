@@ -29,7 +29,8 @@ public:
     void moveLeft();
     void moveRight();
     void setSpeed(float, sf::Time);
-    
+    int getX();
+    int getY();
     sf::Sprite getSprite() const;
     void setLocation(sf::Vector2f position);
     

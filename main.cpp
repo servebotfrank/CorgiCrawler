@@ -20,6 +20,7 @@
 #include "player.hpp"
 #include <iostream>
 #include "tilemap.hpp"
+#include "attack.hpp"
 
 // Here is a small helper for you! Have a look.
 
@@ -158,8 +159,11 @@ int main(int, char const**)
     
     sf::Sprite sprite(playerTexture);
     
-
-
+    //Create attack object and vector
+    Attack attack;
+    vector<Attack> attackVector;
+    int direction;
+    
     // Create a graphical text to display
     sf::Font font;
     if (!font.loadFromFile("sansation.ttf")) {
@@ -170,13 +174,22 @@ int main(int, char const**)
 
     // Load a music to play
     sf::Music music;
-    if (!music.openFromFile("nice_music.ogg")) {
+    if (!music.openFromFile("Pattern12.ogg")) {
         return EXIT_FAILURE;
     }
-
     // Play the music
     music.play();
+    // Loop music
+    music.setLoop(true);
+    // Set Volume
+    music.setVolume(20);
     
+    // Set sound
+    sf::SoundBuffer buffer;
+    buffer.loadFromFile("Bark2.wav");
+    sf::Sound bark;
+    bark.setBuffer(buffer);
+   
     
     Player player(sf::Vector2f(365, 250), sf::Vector2f(48, 45), sf::Vector2f(1.5f, 1.5f), playerTexture);
     
@@ -213,18 +226,27 @@ int main(int, char const**)
         window.clear();
         
         //PLAYER MOVEMENT
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) //Move Up
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){ //Move Up
             player.moveUp();
-        
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) //Move Right
+            direction = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){ //Move Right
             player.moveRight();
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) //Move Down
+            direction = 2;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){ //Move Down
             player.moveDown();
-        
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) //Move Left
+            direction = 3;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){ //Move Left
             player.moveLeft();
-        
+            direction = 4;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+             bark.play();
+             attackVector.push_back(attack);
+             attack.setPos(sf::Vector2f(player.getX(), player.getY()));
+        }
 
         // Draw the string
         window.draw(text);
@@ -250,7 +272,14 @@ int main(int, char const**)
         
         //Draws the Player sprite (Don't do this before drawing the map!)
         window.draw(player.getSprite());
-
+        
+        //Draw attack
+        for(int i =0; i < attackVector.size(); i++){
+            
+            attackVector[i].draw(window);
+            attackVector[i].fire(8, direction);
+        }
+        
         // Update the window
         window.display();
         
