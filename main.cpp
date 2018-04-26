@@ -245,7 +245,7 @@ int main(int, char const**)
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
              bark.play();
              attackVector.push_back(attack);
-             attack.setPos(sf::Vector2f(player.getX(), player.getY()));
+             attack.setPos(sf::Vector2f(player.getX() , player.getY()));
         }
 
         // Draw the string
@@ -278,6 +278,9 @@ int main(int, char const**)
             
             attackVector[i].draw(window);
             attackVector[i].fire(8, direction);
+            if(attackVector[i].getPosition().x < 0 || attackVector[i].getPosition().x > window.getSize().x || attackVector[i].getPosition().y < 0 || attackVector[i].getPosition().y > window.getSize().y){
+                attackVector.erase(attackVector.begin() + i);
+            }
         }
         
         // Update the window

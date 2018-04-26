@@ -55,6 +55,10 @@ void Attack::draw(sf::RenderWindow &window)
     window.draw(_attack);
 }
 
+sf::Vector2f Attack::getPosition(){
+    return _attack.getPosition();
+}
+
 void Attack::setPos(sf::Vector2f newPos)
 {
     _attack.setPosition(newPos);

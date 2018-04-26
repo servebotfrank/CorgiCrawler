@@ -21,6 +21,7 @@ public:
     int getLeft();
     int getTop();
     int getBottom();
+    sf::Vector2f getPosition();
     void draw(sf::RenderWindow &window);
     void setPos(sf::Vector2f newPos);
     ~Attack();
