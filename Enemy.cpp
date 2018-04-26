@@ -8,6 +8,9 @@
 
 #include "Enemy.hpp"
 
+
+#define PI 3.14159265359
+
 Enemy::Enemy()
 {
     
@@ -189,4 +192,78 @@ void Enemy::moveLeft()
     }
 }
 
+void Enemy::path(sf::Vector2f first, sf::Vector2f second)
+{
+	int direction;
+	sf::CircleShape pathpoint[2];
+	pathpoint[0].setPosition(first);
+	pathpoint[0].setRadius(2);
+	pathpoint[1].setPosition(second);
+	pathpoint[1].setRadius(2);
 
+	//Path between two points
+	if (towardFirst == true)
+	{
+
+		if (towardX == true)
+		{
+			if ((_Sprite.getPosition().x - first.x) > 0.0)
+				direction = -1;
+			else
+				direction = 1;
+
+			_Sprite.move(_Speed*direction, 0);
+			if ((_Sprite.getPosition().x - first.x) > -1 && (_Sprite.getPosition().x - first.x) < 1)
+				towardX = false;
+		}
+		else
+		{
+			if ((_Sprite.getPosition().y - first.y) > 0.0)
+				direction = -1;
+			else
+				direction = 1;
+
+			_Sprite.move(0, _Speed*direction);
+			
+			if ((_Sprite.getPosition().y - first.y) > -1 && (_Sprite.getPosition().y - first.y) < 1)
+				towardX = true;
+
+		}
+		
+		if (_Sprite.getGlobalBounds().intersects(pathpoint[0].getGlobalBounds()) == true)
+			towardFirst = false;
+	}
+	//-----------------------------------------------------
+
+	else
+	{
+		if (towardX == true)
+		{
+			if ((_Sprite.getPosition().x - second.x) > 0.0)
+				direction = -1;
+			else
+				direction = 1;
+
+			_Sprite.move(_Speed*direction, 0);
+
+			if ((_Sprite.getPosition().x - second.x) > -1 && (_Sprite.getPosition().x - second.x) < 1)
+				towardX = false;
+
+		}
+		else
+		{
+			if ((_Sprite.getPosition().y - second.y) > 0.0)
+				direction = -1;
+			else
+				direction = 1;
+
+			_Sprite.move(0, _Speed*direction);
+		}
+	
+		if (_Sprite.getGlobalBounds().intersects(pathpoint[1].getGlobalBounds()) == true)
+			towardFirst = true;
+
+		if ((_Sprite.getPosition().y - second.y) > -1 && (_Sprite.getPosition().y - second.y) < 1)
+			towardX = true;
+	}
+}

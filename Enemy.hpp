@@ -26,7 +26,7 @@ public:
     
     void Update();
     bool Collision( Enemy e );
-    void move();
+    void path(sf::Vector2f first, sf::Vector2f second);
     void moveUp();
     void moveDown();
     void moveLeft();
@@ -43,7 +43,8 @@ private:
     float _Speed;
     sf::Clock _AnimClock;
     sf::Time _AnimTime;
-    
+	bool towardFirst = true;
+	bool towardX = true;
     
 };
 
