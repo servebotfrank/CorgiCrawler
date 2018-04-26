@@ -198,6 +198,8 @@ int main(int, char const**)
     
     Player player(sf::Vector2f(365, 250), sf::Vector2f(48, 45), sf::Vector2f(1.5f, 1.5f), playerTexture);
     
+    Player player2(sf::Vector2f(200, 125), sf::Vector2f(48, 45), sf::Vector2f(1.5f, 1.5f), playerTexture);
+    
 
     // Start the game loop
     while (window.isOpen())
@@ -231,19 +233,19 @@ int main(int, char const**)
         window.clear();
         
         //PLAYER MOVEMENT
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){ //Move Up
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){ //Move Up
             player.moveUp();
             direction = 1;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){ //Move Right
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){ //Move Right
             player.moveRight();
             direction = 2;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){ //Move Down
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){ //Move Down
             player.moveDown();
             direction = 3;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){ //Move Left
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){ //Move Left
             player.moveLeft();
             direction = 4;
         }
@@ -251,6 +253,28 @@ int main(int, char const**)
              bark.play();
              attackVector.push_back(attack);
              attack.setPos(sf::Vector2f(player.getX() + attack.getRight()/2, player.getY() + attack.getBottom()));
+        }
+        //PLAYER2 MOVEMENT
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){ //Move Up
+            player2.moveUp();
+            direction = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){ //Move Right
+            player2.moveRight();
+            direction = 2;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){ //Move Down
+            player2.moveDown();
+            direction = 3;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){ //Move Left
+            player2.moveLeft();
+            direction = 4;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
+            bark.play();
+            attackVector.push_back(attack);
+            attack.setPos(sf::Vector2f(player2.getX() + attack.getRight()/2, player2.getY()+ attack.getBottom()));
         }
 
         // Draw the string
@@ -277,6 +301,7 @@ int main(int, char const**)
         
         //Draws the Player sprite (Don't do this before drawing the map!)
         window.draw(player.getSprite());
+        window.draw(player2.getSprite());
         
         //Draw attack
         for(int i =0; i < attackVector.size(); i++){
