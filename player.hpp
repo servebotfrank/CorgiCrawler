@@ -18,23 +18,21 @@ class Player
 {
 public:
     
-    sf::RectangleShape rect;
-    float bottom, left, right, top;
     Tilemap * map;
     Player();
     Player(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::Texture&);
     ~Player();
     
-    void Update();
-    bool Collision( Player p );
     void move();
     void moveUp();
     void moveDown();
     void moveLeft();
     void moveRight();
     void setSpeed(float, sf::Time);
-    
+    int getX();
+    int getY();
     sf::Sprite getSprite() const;
+    void setLocation(sf::Vector2f position);
     
 private:
     sf::Sprite _Sprite;

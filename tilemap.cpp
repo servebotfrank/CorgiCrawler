@@ -24,6 +24,11 @@ bool Tilemap::load(const std::string &tileset, sf::Vector2u tileSize, const int 
         {
             // get the current tile number
             int tileNumber = tiles[i + j * width];
+            int targetLevel;
+            if (tileNumber >= 5) {
+                targetLevel = tileNumber - 5;
+                tileNumber = 5;
+            }
             
             // find its position in the tileset texture
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
@@ -41,6 +46,12 @@ bool Tilemap::load(const std::string &tileset, sf::Vector2u tileSize, const int 
             if (tileNumber == 1) {
                 walls.push_back(sf::FloatRect(i * tileSize.x, j * tileSize.y, 32, 32));
             }
+            
+            if (tileNumber == 5) {
+                Door door(sf::FloatRect(i * tileSize.x, j * tileSize.y, 32, 32), targetLevel);
+                doors.push_back(door);
+            }
+
             
             // define its 4 texture coordinates
             quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
