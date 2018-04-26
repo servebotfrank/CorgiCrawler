@@ -15,6 +15,7 @@
 class Attack{
 public:
     Attack();
+    Attack(sf::Texture &TEMP_Texture);
     void fire(int speed, int direction);
     void Update();
     int getRight();
@@ -27,5 +28,7 @@ public:
     ~Attack();
 private:
     sf::RectangleShape _attack;
+    sf::Sprite _Sprite;
+    sf::Vector2f _Source;
 };
 #endif /* attack_hpp */

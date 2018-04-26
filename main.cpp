@@ -21,6 +21,7 @@
 #include <iostream>
 #include "tilemap.hpp"
 #include "attack.hpp"
+#include "Enemy.hpp"
 
 // Here is a small helper for you! Have a look.
 
@@ -157,12 +158,16 @@ int main(int, char const**)
     if(!playerTexture.loadFromFile("Corgi.png"))
         std::cout << "Texture Error" << std::endl;
     
+    sf::Texture barkTexture;
+    if(!barkTexture.loadFromFile("corgi crawler bark attack.png"))
+        std::cout << "Texture Error" << std::endl;
+    
     sf::Sprite sprite(playerTexture);
     
     //Create attack object and vector
-    Attack attack;
+    Attack attack(barkTexture);
     vector<Attack> attackVector;
-    int direction;
+    int direction = 0;
     
     // Create a graphical text to display
     sf::Font font;
@@ -189,7 +194,7 @@ int main(int, char const**)
     buffer.loadFromFile("Bark2.wav");
     sf::Sound bark;
     bark.setBuffer(buffer);
-   
+    bark.setPitch(1.5);
     
     Player player(sf::Vector2f(365, 250), sf::Vector2f(48, 45), sf::Vector2f(1.5f, 1.5f), playerTexture);
     
@@ -245,7 +250,7 @@ int main(int, char const**)
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
              bark.play();
              attackVector.push_back(attack);
-             attack.setPos(sf::Vector2f(player.getX() , player.getY()));
+             attack.setPos(sf::Vector2f(player.getX() + attack.getRight()/2, player.getY() + attack.getBottom()));
         }
 
         // Draw the string
@@ -275,9 +280,10 @@ int main(int, char const**)
         
         //Draw attack
         for(int i =0; i < attackVector.size(); i++){
-            
             attackVector[i].draw(window);
-            attackVector[i].fire(8, direction);
+            attackVector[i].fire(3, direction);
+            
+            //Deletes attack once it leaves the screen
             if(attackVector[i].getPosition().x < 0 || attackVector[i].getPosition().x > window.getSize().x || attackVector[i].getPosition().y < 0 || attackVector[i].getPosition().y > window.getSize().y){
                 attackVector.erase(attackVector.begin() + i);
             }

@@ -15,19 +15,28 @@ Attack::Attack()
     _attack.setFillColor(sf::Color::Red);
 }
 
+Attack::Attack(sf::Texture &TEMP_Texture)
+{
+    _attack.setSize(sf::Vector2f(32,32));
+    _Sprite.setPosition(0,0);
+    _Sprite.setTexture(TEMP_Texture);
+    _Sprite.setTextureRect(sf::IntRect(_Source.x * 145, _Source.y *180 , 32, 32));
+}
+
 void Attack::fire(int speed, int direction)
 {
     if(direction == 1)
-        _attack.move(0, -speed);
+        _Sprite.move(0, -speed);
     
     if(direction == 3)
-        _attack.move(0, speed);
+        _Sprite.move(0, speed);
     
     if(direction == 2)
-        _attack.move(speed, 0);
+        _Sprite.move(speed, 0);
     
     if(direction == 4)
-        _attack.move(-speed, 0);
+        _Sprite.move(-speed, 0);
+    
 }
 
 int Attack::getRight()
@@ -52,16 +61,16 @@ int Attack::getBottom()
 
 void Attack::draw(sf::RenderWindow &window)
 {
-    window.draw(_attack);
+    window.draw(_Sprite);
 }
 
 sf::Vector2f Attack::getPosition(){
-    return _attack.getPosition();
+    return _Sprite.getPosition();
 }
 
 void Attack::setPos(sf::Vector2f newPos)
 {
-    _attack.setPosition(newPos);
+    _Sprite.setPosition(newPos);
 }
 
 Attack::~Attack(){}
